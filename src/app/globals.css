@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 0 0% 26.7%; /* #444444 */
+    --foreground: 0 0% 98%; /* #fafafa */
+    --card: 0 0% 26.7%; /* #444444 */
+    --card-foreground: 0 0% 98%; /* #fafafa */
+    --primary: 217.2 91.2% 59.8%; /* #3b82f6 */
+    --primary-foreground: 0 0% 100%; /* #ffffff */
+    --secondary: 0 0% 9.8%; /* #1a1a1a */
+    --secondary-foreground: 0 0% 98%; /* #fafafa */
+    --accent: 0 0% 9.8%; /* #1a1a1a */
+    --accent-foreground: 0 0% 98%; /* #fafafa */
+    --destructive: 0 84.2% 60.2%; /* #ef4444 */
+    --destructive-foreground: 0 0% 100%; /* #ffffff */
+    --muted: 0 0% 9.8%; /* #1a1a1a */
+    --muted-foreground: 0 0% 64.9%; /* #a1a1aa */
+    --border: 0 0% 9.8%; /* #1a1a1a */
+    --sidebar-background: 0 0% 26.7%; /* #444444 */
+    --sidebar-foreground: 0 0% 95.9%; /* #f4f4f5 */
+    --sidebar-primary: 217.2 91.2% 59.8%; /* #3b82f6 */
+    --sidebar-primary-foreground: 0 0% 100%; /* #ffffff */
+    --sidebar-accent: 0 0% 9.8%; /* #1a1a1a */
+    --sidebar-accent-foreground: 0 0% 95.9%; /* #f4f4f5 */
+    --sidebar-border: 0 0% 9.8%; /* #1a1a1a */
+    --sidebar-ring: 217.2 91.2% 59.8%; /* #3b82f6 */
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: Inter, sans-serif;
+  }
+  
+  /* Styles React Native-like */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+  }
+  
+  p, span, div, button {
+    font-weight: normal;
+  }
+  
+  /* Titres spécifiques */
+  .text-3xl {
+    font-weight: bold;
+  }
+  
+  .text-2xl {
+    font-weight: bold;
+  }
+  
+  .text-xl {
+    font-weight: bold;
+  }
+  
+  .text-lg {
+    font-weight: bold;
+  }
+  
+  /* Textes normaux */
+  .text-sm, .text-base, .text-xs {
+    font-weight: normal;
+  }
+}
+
+/* Styles personnalisés conservés */
+.linear_gradient {
+  background: linear-gradient(
+    267deg,
+    #fff -9.43%,
+    #040218 -9.42%,
+    #fff 4.63%,
+    #d2e4f2 127.55%
+  );
+}
+
+.bg_image {
+  background:
+    linear-gradient(
+      181deg,
+      rgba(255, 255, 255, 0) 57.92%,
+      #fff 97.09%,
+      rgba(255, 255, 255, 0) 127.09%
+    ),
+    url("/images/background.png"),
+    lightgray 0% 0% / 261px 261px repeat;
+}
+
+.button {
+  border-radius: 8px;
+  background: linear-gradient(
+    267deg,
+    #0983df -9.43%,
+    #040218 -9.42%,
+    #0d87e1 4.63%,
+    #0983df 127.55%
+  );
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
