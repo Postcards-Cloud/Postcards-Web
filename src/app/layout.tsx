@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Montserrat, Lato } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { cn } from "@/lib/utils";
 import "./globals.css";
 import ConvexClientProvider from "./ConvexClientProvider";
@@ -22,6 +24,8 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={cn(inter.className, montserrat.className, lato.className)}>
         <ConvexClientProvider>{children}</ConvexClientProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
