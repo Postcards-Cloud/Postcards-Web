@@ -1,24 +1,37 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, useMemo } from "react";
 import { ConvexReactClient } from "convex/react";
 import { ConvexProviderWithClerk } from "convex/react-clerk";
 import { ClerkProvider, useAuth } from "@clerk/clerk-react";
 import { ErrorBoundary } from "./ErrorBoundary";
 
-const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
+type ConvexClientProviderProps = {
+  children: ReactNode;
+};
 
 export default function ConvexClientProvider({
   children,
-}: {
-  children: ReactNode;
-}) {
+}: ConvexClientProviderProps) {
+  const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL;
+  const clerkPublishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+
+  if (!convexUrl || !clerkPublishableKey) {
+    if (process.env.NODE_ENV === "development") {
+      console.warn(
+        "ConvexClientProvider: NEXT_PUBLIC_CONVEX_URL ou NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY manquant. Les providers Convex/Clerk sont désactivés.",
+      );
+    }
+
+    return <>{children}</>;
+  }
+
+  const convex = useMemo(() => new ConvexReactClient(convexUrl), [convexUrl]);
+
   return (
     // NOTE: Once you get Clerk working you can remove this error boundary
     <ErrorBoundary>
-      <ClerkProvider
-        publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY!}
-      >
+      <ClerkProvider publishableKey={clerkPublishableKey}>
         <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
           {children}
         </ConvexProviderWithClerk>

@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Aperçu
 
-## Getting Started
+Ce dépôt fournit une base Next.js 15 prête pour :
 
-First, run the development server:
+- déployer sur Vercel une landing page marketing (`src/app/(marketing)`),
+- construire un tableau de bord applicatif (`src/app/dashboard`),
+- exploiter les composants ShadCN déjà installés,
+- itérer avec l’assistant visuel [v0](https://v0.dev/) de Vercel.
+
+## Prérequis
+
+- Node.js 18.18+ ou 20+ (même version que l’environnement Vercel).
+- Un compte Vercel avec accès au projet v0.
+- Optionnel : un compte Clerk et un déploiement Convex (les providers se désactivent automatiquement si les variables d’environnement sont absentes).
+
+## Installation locale
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+La landing page est servie sur `http://localhost:3000`, le dashboard sur `http://localhost:3000/dashboard`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Structure des dossiers
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- `src/app/(marketing)`: landing page et sections marketing.
+- `src/app/dashboard`: application authentifiée et widgets ShadCN.
+- `src/components`: bibliothèque de composants (ShadCN + surcouche projet).
+- `prompts/v0`: briefs utilisés par v0 pour générer/itérer le contenu.
+- `v0.config.ts`: configuration centrale pour le CLI v0 (routes, prompts, Tailwind, ShadCN).
 
-## Learn More
+## Déploiement Vercel
 
-To learn more about Next.js, take a look at the following resources:
+1. Créez un nouveau projet sur Vercel en pointant vers ce dépôt.
+2. Laissez les commandes par défaut (`npm install`, `npm run build`). Elles sont également renseignées dans `vercel.json`.
+3. Ajoutez les variables d’environnement nécessaires (`NEXT_PUBLIC_CONVEX_URL`, `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY`, etc.). En leur absence, l’application reste fonctionnelle mais sans intégration Clerk/Convex.
+4. Déployez : Vercel activera automatiquement [Analytics](https://vercel.com/docs/observability/analytics) et [Speed Insights](https://vercel.com/docs/observability/speed-insights) déjà importés dans `src/app/layout.tsx`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Utiliser v0
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. **Installer le CLI** : `npm i -g v0` (ou `npx v0@latest ...`).
+2. **Authentifier** : `v0 login` puis `v0 link` afin d’associer le projet GitHub/Vercel.
+3. **Configurer** : le fichier `v0.config.ts` référence les prompts (`prompts/v0`) et les emplacements de sortie :
+   - `/` → `src/app/(marketing)`
+   - `/dashboard` → `src/app/dashboard`
+4. **Générer** :
+   ```bash
+   v0 generate landing
+   v0 generate dashboard
+   ```
+   Les composants produits respecteront Tailwind (`tailwind.config.ts`) et ShadCN (`components.json`).
+5. **Valider** les modifications avant commit (lint, test visuel, etc.).
 
-## Deploy on Vercel
+## ShadCN UI
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `components.json` est prêt pour `npx shadcn@latest add <component>`.
+- Les styles globaux sont définis dans `src/app/globals.css` avec tokens CSS variables.
+- Les nouveaux composants générés par v0 doivent réutiliser les primitives existantes (boutons, cards, tabs, etc.) pour garantir la cohérence.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Qualité & lint
+
+```bash
+npm run lint
+```
+
+L’exécution est conseillée avant tout `git push` ou `vercel deploy`.
