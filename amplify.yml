@@ -4,7 +4,12 @@ frontend:
     preBuild:
       commands:
         - echo "Installation des dépendances..."
-        - npm ci
+        - |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
         - echo "Variables d'environnement configurées:"
         - echo "NEXT_PUBLIC_CONVEX_URL=${NEXT_PUBLIC_CONVEX_URL:-non configuré}"
         - echo "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:-non configuré}"
