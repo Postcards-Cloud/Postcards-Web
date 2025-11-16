@@ -1,0 +1,26 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - echo "Installation des dépendances..."
+        - npm ci
+        - echo "Variables d'environnement configurées:"
+        - echo "NEXT_PUBLIC_CONVEX_URL=${NEXT_PUBLIC_CONVEX_URL:-non configuré}"
+        - echo "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:-non configuré}"
+    build:
+      commands:
+        - echo "Build de l'application Next.js..."
+        - npm run build
+  artifacts:
+    baseDirectory: .next
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+      - .next/cache/**/*
+# Note: Convex est un backend externe (BaaS), pas un backend Amplify
+# Le message "No backend environment association found" est normal
+# Les variables d'environnement doivent être configurées dans Amplify Console
+
