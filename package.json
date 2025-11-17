@@ -18,7 +18,6 @@
     "@dnd-kit/utilities": "^3.2.2",
     "@headlessui/react": "^2.0.3",
     "@heroicons/react": "^2.1.3",
-    "@packages/backend": "*",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-checkbox": "^1.3.3",
     "@radix-ui/react-collapsible": "^1.1.12",

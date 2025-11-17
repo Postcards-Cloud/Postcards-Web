@@ -5,6 +5,12 @@ frontend:
       commands:
         - echo "Installation des dépendances..."
         - |
+          # Retirer @packages/backend du package.json car c'est un package local du monorepo
+          # qui n'est pas nécessaire pour le build Next.js (Convex est utilisé via l'URL)
+          if [ -f package.json ]; then
+            sed -i.bak '/"@packages\/backend"/d' package.json
+          fi
+        - |
           if [ -f package-lock.json ]; then
             npm ci
           else
